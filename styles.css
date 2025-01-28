@@ -1,0 +1,902 @@
+:root {
+    --primary-color: #FFFFFF;          /* Change to white */
+    --secondary-color: #000000;        /* Black for text */
+    --accent-color: #333333;           /* Dark gray for accents */
+    --text-muted: #666666;             /* Medium gray for muted text */
+    --card-bg: rgba(255, 255, 255, 0.9); /* Slightly transparent white for cards */
+    --border-color: rgba(0, 0, 0, 0.1); /* Light border color */
+    --hover-bg: rgba(51, 51, 51, 0.1); /* Light gray for hover */
+    --font-primary: 'Roboto', sans-serif; /* Modern font */
+    --font-size-huge: clamp(3rem, 8vw, 5rem);  /* For large headings */
+    --font-size-large: clamp(1.5rem, 4vw, 2.5rem);  /* For headings */
+    --h1-size: clamp(2.5rem, 5vw, 4rem);
+    --h2-size: clamp(2rem, 4vw, 3rem);
+    --h3-size: clamp(1.5rem, 3vw, 2rem);
+    --body-large: clamp(1.125rem, 2vw, 1.5rem); /* Larger text */
+    --body-normal: clamp(1rem, 1.5vw, 1.25rem); /* Normal body text */
+    --body-small: clamp(0.875rem, 1.2vw, 1rem); /* Smaller text */
+    --spacing-section: clamp(4rem, 10vh, 8rem); /* Spacing for sections */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-primary);
+    font-size: var(--body-normal);
+    line-height: 1.6;
+    color: var(--secondary-color); /* Black text */
+    background-color: var(--primary-color); /* Now white */
+    overflow-x: hidden;
+    position: relative; /* Ensure body is positioned for absolute elements */
+    cursor: auto; /* Default cursor */
+}
+
+.noise-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAGFBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAVfJ92AAAACHRSTlMABQgNERQHGx4t5okAAABWSURBVDjLY2AYBaNg2AJGZQVmZQYGRmYFZmYGBhYFZmYGBmYFBQUGBkYFBQYGBgZmBQYGBgUFZgYGBQVmBQYFBWYFBgYFZgUGBmYFZmYGBkYFZmUGAPwVDG4MqewMAAAAAElFTkSuQmCC') repeat;
+    opacity: 0.05;
+    z-index: 1;
+    pointer-events: none;
+}
+
+header {
+    padding: 1rem; /* Reduced padding */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    z-index: 100;
+    background-color: #FFFFFF; /* White background */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Light shadow */
+}
+
+.header-left,
+.header-center,
+.header-right {
+    display: flex;
+    align-items: center;
+    color: var(--secondary-color); /* Black text */
+}
+
+.logo {
+    font-size: var(--font-size-huge);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.dot {
+    color: var(--accent-color);
+}
+
+.subtitle {
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    opacity: 0.7;
+}
+
+/* Common button styles */
+button,
+.cta-button,
+.menu-toggle,
+.contact-button,
+.social-links a {
+    padding: 0.75rem 1.5rem; /* Reduced padding */
+    background-color: var(--accent-color); /* Dark gray */
+    color: #FFFFFF; /* White text */
+    border: none;
+    border-radius: 25px; /* More rounded corners */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+button:hover,
+.cta-button:hover,
+.menu-toggle:hover,
+.contact-button:hover,
+.social-links a:hover {
+    background-color: rgba(51, 51, 51, 0.8); /* Darker gray on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+/* Active effect for buttons */
+button:active,
+.cta-button:active,
+.menu-toggle:active,
+.contact-button:active,
+.social-links a:active {
+    transform: translateY(1px); /* Slight press effect */
+}
+
+/* Interactive cards */
+.experience-item, 
+.education-item {
+    margin-bottom: 4rem;
+    padding: 2rem;
+    background: var(--card-bg);
+    border-radius: 1rem;
+    border: 1px solid var(--border-color);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; /* Faster transition */
+}
+
+.experience-item.visible,
+.education-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.experience-item:hover,
+.education-item:hover {
+    border-color: var(--accent-color);
+    background: var(--hover-bg);
+    transform: translateY(-5px); /* Slight lift effect on hover */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+}
+
+/* Skills list interaction */
+.skills-list li {
+    padding: 0.5rem 1rem; /* Reduced padding */
+    margin-bottom: 0.5rem; /* Reduced margin */
+    border-radius: 2rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    transition: background 0.3s ease;
+}
+
+.skills-list li:hover {
+    background: var(--hover-bg); /* Change background on hover */
+    border-color: var(--accent-color); /* Change border color on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+/* Smooth scroll behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Add hover effect for menu items */
+.full-menu ul li a {
+    position: relative;
+    display: inline-block;
+}
+
+.full-menu ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--secondary-color);
+    transition: width 0.3s ease;
+}
+
+.full-menu ul li a:hover::after {
+    width: 100%;
+}
+
+.hero {
+    position: relative;
+    min-height: 100vh; /* Full height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Hide overflow */
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Behind the content */
+    overflow: hidden; /* Hide overflow */
+}
+
+.hero-background img {
+    position: absolute; /* Positioning for better control */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    width: 100%; /* Full width */
+    height: auto; /* Maintain aspect ratio */
+    max-width: none; /* Prevent scaling */
+    max-height: none; /* Prevent scaling */
+    transform: translate(-50%, -50%); /* Center the image */
+    object-fit: cover; /* Cover the entire section */
+}
+
+.hero-content {
+    position: relative; /* Ensure content is above the background */
+    z-index: 2; /* Above the background */
+    text-align: center;
+    color: var(--secondary-color); /* Black text */
+    margin-top: 20px; /* Space above the hero content */
+    background: rgba(255, 255, 255, 0.7); /* Semi-transparent white background */
+    padding: 20px; /* Add some padding */
+    border-radius: 10px; /* Rounded corners for a softer look */
+}
+
+.hero-title {
+    font-size: var(--font-size-large); /* Adjusted for larger headings */
+    font-weight: 800; /* Make it bolder for emphasis */
+    margin-bottom: 0.5rem; /* Reduced space below the title */
+}
+
+.hero-text {
+    font-size: clamp(1.1rem, 2vw, 1.3rem);
+    opacity: 0.7;
+    margin-bottom: 3rem;
+}
+
+.cta-button {
+    background: var(--accent-color); /* Gray */
+    color: var(--primary-color); /* White */
+    border: none;
+    padding: 1rem 2rem;
+    font-weight: 500;
+    border-radius: 2rem;
+    transition: background 0.3s ease;
+}
+
+.cta-button:hover {
+    background: var(--hover-bg); /* Light gray */
+}
+
+.cta-button.accent {
+    color: var(--accent-color);
+}
+
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--primary-color);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 99;
+}
+
+.menu-overlay.active {
+    display: flex;
+}
+
+.full-menu ul {
+    list-style: none;
+    text-align: center;
+}
+
+.full-menu ul li {
+    margin: 2rem 0;
+}
+
+.full-menu ul li a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-size: 3rem;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.full-menu ul li a:hover {
+    color: var(--accent-color);
+}
+
+footer {
+    padding: 2rem;
+    background-color: var(--accent-color); /* Gray */
+    color: var(--secondary-color); /* Black text */
+    text-align: center;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1); /* Shadow on top */
+}
+
+.footer-content {
+    margin-top: 2rem;
+}
+
+.social-links {
+    margin-bottom: 1rem;
+}
+
+.social-links a {
+    margin: 0 1rem; /* Space between links */
+    color: var(--secondary-color); /* Black text */
+    transition: color 0.3s ease; /* Smooth transition */
+}
+
+.social-links a:hover {
+    color: var(--accent-color); /* Change color on hover */
+}
+
+/* Loading animation styles */
+.loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9); /* Black background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Ensure it is on top */
+}
+
+.loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.loading-circle {
+    width: 50px; /* Adjust size as needed */
+    height: 50px; /* Adjust size as needed */
+    border: 5px solid var(--secondary-color); /* Border color */
+    border-top: 5px solid var(--primary-color); /* Top color */
+    border-radius: 50%;
+    animation: spin 1s linear infinite; /* Spin animation */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loader span {
+    color: var(--secondary-color);
+    font-size: var(--body-normal);
+    margin-top: 1rem;
+}
+
+.section {
+    padding: 2rem 1rem; /* Reduced padding for sections */
+    margin: 1rem 0; /* Reduced margin between sections */
+    background-color: var(--primary-color); /* White */
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Card animations */
+.experience-item:hover, 
+.education-item:hover {
+    border-color: var(--accent-color);
+    background: var(--hover-bg);
+}
+
+.experience-item h3, .education-item h3 {
+    font-size: var(--h3-size);
+    margin-bottom: 0.5rem;
+    font-weight: 600; /* Make experience and education titles bolder */
+}
+
+.company, .degree {
+    font-size: var(--body-large);
+    color: var(--accent-color);
+    margin-bottom: 0.5rem;
+}
+
+.duration, .location {
+    font-size: var(--body-small);
+    opacity: 0.7;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.social-links a {
+    color: #000000; /* Black text */
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    background-color: #FFFFFF; /* White background */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+}
+
+.social-links a:hover {
+    background-color: var(--hover-bg); /* Light gray for hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+@media (max-width: 768px) {
+    .section {
+        padding: 6rem 1rem;
+    }
+    
+    .skills-list {
+        gap: 0.75rem;
+    }
+    
+    .skills-list li {
+        font-size: 0.8rem;
+    }
+
+    .experience-item, .education-item {
+        padding: 1.5rem;
+    }
+
+    .social-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .contact-links {
+        padding: 0 1rem;
+    }
+    
+    .contact-button {
+        padding: 1.5rem;
+    }
+}
+
+/* Add background follower styles */
+.background-follower {
+    position: fixed;
+    width: 100px; /* Adjust size as needed */
+    height: 100px; /* Adjust size as needed */
+    background: rgba(255, 255, 255, 0.1); /* Light white */
+    border-radius: 50%; /* Circular shape */
+    pointer-events: none; /* Allow clicks to pass through */
+    z-index: -1; /* Behind other content */
+    transition: transform 0.1s ease; /* Smooth movement */
+}
+
+/* Theme toggle styles */
+.theme-toggle {
+    display: none;
+}
+
+/* Shiny effect styles */
+.shine-effect {
+    position: relative;
+    overflow: hidden;
+}
+
+.shine-effect::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent,
+        rgba(0, 0, 0, 0.1),
+        transparent
+    );
+    transform: rotate(45deg);
+    animation: shine 3s infinite;
+    pointer-events: none;
+}
+
+@keyframes shine {
+    0% {
+        transform: translateX(-100%) rotate(45deg);
+    }
+    100% {
+        transform: translateX(100%) rotate(45deg);
+    }
+}
+
+/* Add shine effect to cards */
+.experience-item, .education-item, .skills-list li {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Loading animation styles */
+.loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.loading-circle {
+    width: 50px; /* Adjust size as needed */
+    height: 50px; /* Adjust size as needed */
+    border: 5px solid var(--secondary-color); /* Border color */
+    border-top: 5px solid var(--primary-color); /* Top color */
+    border-radius: 50%;
+    animation: spin 1s linear infinite; /* Spin animation */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loader span {
+    color: var(--secondary-color);
+    font-size: var(--body-normal);
+    margin-top: 1rem;
+}
+
+/* Hide content while loading */
+.content-hidden {
+    opacity: 0;
+}
+
+.skills-section {
+    margin-bottom: 4rem;
+    padding: 2rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 1rem;
+}
+
+.skills-section h3 {
+    font-size: var(--font-size-large);
+    margin-bottom: 1rem;
+    font-weight: 600; /* Make skills section title bolder */
+}
+
+.skills-list {
+    list-style: none;
+    padding: 0;
+}
+
+.skills-list li {
+    padding: 0.5rem 1rem; /* Reduced padding */
+    margin-bottom: 0.5rem; /* Reduced margin */
+    border-radius: 2rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    transition: background 0.3s ease;
+}
+
+.skills-list li:hover {
+    background: var(--hover-bg);
+    border-color: var(--accent-color);
+}
+
+/* Ripple effect */
+.ripple {
+    position: relative;
+    overflow: hidden;
+}
+
+.ripple::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.3);
+    transform: scale(0);
+    transition: transform 0.6s, opacity 0.6s;
+    pointer-events: none;
+}
+
+.ripple:active::after {
+    transform: scale(4);
+    opacity: 0;
+}
+
+/* Fade in animation for hero content */
+.hero-content {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+    animation-delay: 0.5s;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Remove all transition effects */
+* {
+    transition: none !important;
+}
+
+/* Remove blur and other effects */
+.section,
+.experience-item,
+.education-item,
+.skills-list li {
+    filter: none;
+    transform: none;
+    opacity: 1;
+    will-change: auto;
+}
+
+/* Update menu styles */
+.menu-toggle {
+    font-size: 1rem;
+    padding: 0;
+    border: none;
+    background: none;
+    color: var(--secondary-color);
+}
+
+/* Update navigation links */
+.nav-link {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+/* About Me Section Styles */
+#about {
+    padding: 4rem 2rem;
+    background-color: var(--primary-color); /* White */
+    color: var(--secondary-color); /* Black */
+}
+
+#about h2 {
+    font-size: var(--font-size-large);
+    font-weight: 700;
+    margin-bottom: 2rem;
+}
+
+#about p {
+    font-size: var(--body-large); /* Larger text */
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    color: var(--text-muted); /* Dark gray for muted text */
+}
+
+/* Background lines */
+.background-lines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Allow clicks to pass through */
+    z-index: -1; /* Behind other content */
+}
+
+.line {
+    position: absolute;
+    width: 2px; /* Line thickness */
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1); /* Light white lines */
+    transform: translateX(-50%);
+}
+
+/* Remove card view styles */
+.contact-cards {
+    display: none;
+}
+
+.contact-card {
+    display: none;
+}
+
+/* Add hover effects for links and buttons */
+a, .cta-button {
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+a:hover, .cta-button:hover {
+    color: var(--accent-color); /* Change color on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.header-center h3 {
+    font-size: var(--body-normal);
+    color: var(--secondary-color); /* Black text */
+    text-align: center;
+    margin: 0.5rem 0; /* Adjust margin as needed */
+    font-weight: 600; /* Make it bolder */
+}
+
+.back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    display: none; /* Hidden by default */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Added transform for hover effect */
+}
+
+.back-to-top:hover {
+    background-color: var(--hover-bg);
+    transform: scale(1.1); /* Slightly enlarge on hover */
+}
+
+#contact {
+    padding: 4rem 2rem;
+    background-color: var(--primary-color); /* White */
+    color: var(--secondary-color); /* Black */
+}
+
+#contact h2 {
+    font-size: var(--font-size-large);
+    font-weight: 700;
+    margin-bottom: 2rem;
+}
+
+#contact p {
+    font-size: var(--body-large);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    color: var(--text-muted); /* Dark gray for muted text */
+}
+
+.contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem; /* Space between buttons */
+}
+
+.contact-button {
+    padding: 1rem 2rem;
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    border-radius: 2rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+}
+
+.contact-button:hover {
+    background-color: var(--hover-bg); /* Light gray for hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+#projects {
+    padding: 4rem 2rem;
+    background-color: var(--primary-color); /* White */
+    color: var(--secondary-color); /* Black */
+}
+
+#projects h2 {
+    font-size: var(--font-size-large);
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+#projects p {
+    font-size: var(--body-large);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    color: var(--text-muted); /* Dark gray for muted text */
+}
+
+.project-slider {
+    position: relative;
+    overflow-x: auto; /* Allow horizontal scrolling */
+    white-space: nowrap; /* Prevent line breaks */
+    padding: 1rem 0; /* Add some padding */
+    scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+
+.project-slider::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
+}
+
+.project-list {
+    display: inline-flex; /* Horizontal layout */
+    transition: transform 0.5s ease; /* Smooth transition for sliding */
+}
+
+.project-item {
+    display: inline-block; /* Ensure items are inline */
+    min-width: 350px; /* Set a fixed width for each project */
+    margin-right: 1rem; /* Space between items */
+    padding: 2rem; /* Increased padding for larger cards */
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px; /* Rounded corners */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.project-item:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+}
+
+.project-item h3 {
+    font-size: var(--h3-size);
+    margin-bottom: 0.5rem;
+    font-weight: 600; /* Make project titles bolder */
+}
+
+.project-item .description {
+    font-size: var(--body-normal);
+    color: var(--text-muted); /* Dark gray for muted text */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-primary); /* Consistent font for headings */
+    color: var(--secondary-color); /* Black text */
+    margin-bottom: 0.25rem; /* Reduced margin */
+    font-weight: 600; /* Increase font weight for headings */
+}
+
+#mouse-tracker {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    color: white;
+    background: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
+    padding: 5px;
+    border-radius: 5px;
+    z-index: 1000; /* Ensure it is above other elements */
+    display: none; /* Initially hidden */
+}
+
+#mouse-tracker-lines {
+    position: fixed;
+    pointer-events: none; /* Allow clicks to pass through */
+    z-index: 1000; /* Ensure it is above other elements */
+}
+
+.line {
+    position: absolute;
+    width: 2px; /* Line thickness */
+    height: 100px; /* Length of the line */
+    background: rgba(0, 0, 0, 0.5); /* Dark color for visibility */
+    transform-origin: top; /* Rotate from the top */
+    transition: transform 0.1s ease; /* Smooth transition */
+}
+
+.container {
+    max-width: 1200px; /* Limit width for better readability */
+    margin: 0 auto; /* Center the container */
+    padding: 0 1rem; /* Add some padding */
+}
+
+.project-item,
+.experience-item,
+.education-item {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px; /* Rounded corners */
+    padding: 2rem; /* Increased padding for larger cards */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.project-item:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+}
+
+#background-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Cover the entire section */
+    z-index: 1; /* Behind the content */
+    opacity: 0.3; /* Lower opacity for less distraction */
+}
